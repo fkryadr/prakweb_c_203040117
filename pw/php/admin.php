@@ -18,6 +18,10 @@ $buku = query("SELECT * FROM buku");
 
 </style>
 
+<body>
+    <h1>Daftar Buku Terbaik</h1>
+</body>
+
 <div class="add">
     <a href="php/tambah.php"><button>Tambah Data</button></a>
 </div>
