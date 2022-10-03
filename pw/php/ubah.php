@@ -3,7 +3,7 @@
 require 'functions.php';
 
 $id_buku = $_GET['id'];
-$buku = query("SELECT * FROM buku WHERE id_buku = $id_buku")[0];
+$buk = query("SELECT * FROM buku WHERE id_buku = $id_buku")[0];
 
 
 ?>

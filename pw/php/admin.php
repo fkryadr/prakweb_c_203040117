@@ -7,16 +7,6 @@ $buku = query("SELECT * FROM buku");
 
 ?>
 
-<style>
-
-    .add button {
-
-        background-color: black;
-        color: white;
-
-    }
-
-</style>
 
 <body>
     <h1>Daftar Buku Terbaik</h1>
