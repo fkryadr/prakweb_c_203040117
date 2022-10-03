@@ -8,37 +8,52 @@ $buk = query("SELECT * FROM buku WHERE id_buku = $id_buku")[0];
 
 ?>
 
-    <h3>Form Ubah Data Buku</h3>
-    <form action="" method="POST">
-        <ul>
 
-            <li>
-                <label for="img">Gambar :</label><br>
-                <input type="file" name="img" id="img" ><br><br>
-            </li>
-            <li>
-                <label for="nrp">ID Buku :</label><br>
-                <input type="text" name="" id="nrp" required value="<?= $buku['id_buku']; ?>"><br><br>
-            </li>
-            <li>
-                <label for="nama">Nama Buku :</label><br>
-                <input type="text" name="nama" id="nama" required value="<?= $buku['nama_buku']; ?>"><br><br>
-            </li>
-            <li>
-                <label for="name">Penulis:</label><br>
-                <input type="name" name="desc" id="desc" required value="<?= $buku['penulis']; ?>"><br>
-            </li>
-            <li>
-                <label for="name">Tahun Terbit :</label><br>
-                <input type="name" name="desc" id="desc" required value="<?= $buku['tahun_terbit']; ?>"><br>
-            </li>
-            <br>
-            <button type="submit" name="ubah">Ubah Data</button>
-            <button type="submit">
-                <a href="index.php" style="text-decoration: none; color: black;">Kembali</a>
-            </button>
-        </ul>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+<body>
+<h3 class="center">Change data</h3>
+
+<div class="container">
+    <form action="" method="POST" enctype="multipart/form-data">
+        <input type="hidden" id="id_buku" name="id_buku" value="<?= $buk['id_buku'];?>">
+        <div class="input-field">
+            <input type="text" name="nama_buku" id="nama_buku" class="validate" required value="<?= $buk['nama_buku'];?>">
+            <label for="nama_buku">Nama Buku</label>
+        </div>
+        <div class="input-field">
+            <input type="text" name="pengarang" id="pengarang" class="validate" required value="<?= $buk['pengarang'];?>">
+            <label for="pengarang">Pengarang</label>
+        </div>
+        <div class="file-field input-field">
+            <input type="hidden" name="gambar_lama" value="<?= $buk['gambar']?>">
+            <div class="btn">
+                <span>Choose Picture</span>
+                <input type="file" name="Gambar" id="Gambar" class="gambar" onchange="previewImage()">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" name="Gambar" id="Gambar" value="<?= $buk['gambar'];?>">
+            </div>
+            <img src="img/<?= $buk['gambar']?>" style="display: block;" width="120px" class="img-preview">
+        </div>
+        <button type="submit" name="ubah" class="waves-effect waves-light btn blue lighten-3">Change Data</button>
+        <a href="index.php" class="waves-effect waves-light btn blue lighten-3"><i class="material-icons left">arrow_back</i>Back</a>
+
+
     </form>
+
+
+
+</div>
 
 <?php
 
