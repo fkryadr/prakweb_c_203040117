@@ -1,53 +1,70 @@
 <?php
 
-class App {
-    protected $controller = 'Home';
-    protected $method = 'index';
+class App
+{
+    protected $url;
+
+    protected $controller = DEFAULT_CONTROLLER;
+    protected $method = DEFAULT_METHOD;
     protected $params = [];
 
 
     public function __construct()
     {
-       $url = $this->parseURL();
+        $url = $this->parseURL();
 
-        // COntroller
+        //controller
+        $this->setController();
 
-       if( file_exists('../app/controller/' . $url[0] . '.php') ) {
-           $this->controller = $url[0];
-           unset($url[0]);
-       }
+        // method
+        $this->setMethod();
 
-        require_once '../app/controller/'. $this->controller . '.php';
-        $this->controller = new $this->controller;
+        // params
+        $this->setParams();
 
-       // Method
-       if( isset($url[1]) ) {
-           if( method_exists($this->controller, $url[1]) ) {
-               $this->method = $url[1];
-               unset($url[1]);
-           }
-       }
-
-       // parameter
-        if ( !empty($url) ) {
-            $this->params = array_values($url);
-        }
-
-        // Menjalankan Controller & Method, kirimkan params jika ada
+        // jalankan controller & method, serta kirimkan params jika ada
         call_user_func_array([$this->controller, $this->method], $this->params);
-
 
     }
 
-    public function parseURL() {
+    private function setController()
+    {
+        if (isset($this->url[0])) {
+            $controller = ucfirst($this->url[0]);
+            if (file_exists('../app/controller/' . $controller . '.php')) {
+                $this->controller = $controller;
+                unset($this->url[0]);
+            }
+        }
 
-        if ( isset($_GET['url']) ) {
+        require_once '../app/controller/' . $this->controller . '.php';
+        $this->controller = new $this->controller;
+    }
+
+    private function setMethod()
+    {
+        if (isset($this->url[1])) {
+            if (method_exists($this->controller, $this->url[1])) {
+                $this->method = $this->url[1];
+                unset($this->url[1]);
+            }
+        }
+    }
+
+    private function setParams()
+    {
+        if( !empty($this->url) ) {
+            $this->params = array_values($this->url);
+        }
+    }
+
+    public function parseURL()
+    {
+        if (isset($_GET['url'])) {
             $url = rtrim($_GET['url'], '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);
-            return $url;
+            $this->url = $url;
         }
-
     }
-
 }
